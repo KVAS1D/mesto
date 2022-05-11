@@ -1,0 +1,15 @@
+.form__info {
+  margin: 0;
+  padding: 0;
+  display: block;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  width: 100%;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  font-size: 14px;
+}
+
+.form__info:last-of-type {
+  padding-top: 26px;
+}
