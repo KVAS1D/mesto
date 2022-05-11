@@ -1,22 +1,15 @@
 let popup = document.querySelector('.popup');
 let openPopup = document.querySelector('.profile__edit');
 let closePopup = popup.querySelector('.popup__close');
+let profileTitle = document.querySelector('.profile__name');
+let profileJob = document.querySelector('.profile__job');
 let formElement = document.querySelector('.form');
 let nameInput = formElement.querySelector('#name');
 let jobInput = formElement.querySelector('#description');
 
 function togglePopup() {
-  popup.classList.toggle('popup__opened');
+  popup.classList.toggle('popup_opened');
 }
-
-popup.addEventListener('click', function (evt) {
-  if (evt.target === evt.currentTarget) {
-    togglePopup();
-  }
-})
-
-openPopup.addEventListener('click', togglePopup);
-closePopup.addEventListener('click', togglePopup);
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
@@ -25,7 +18,20 @@ function formSubmitHandler (evt) {
   togglePopup();
 }
 
+closePopup.addEventListener('click', togglePopup);
+
 formElement.addEventListener('submit', formSubmitHandler);
 
-console.log(nameInput.value);
-console.log(jobInput.value);
+popup.addEventListener('click', function (event) {
+  if (event.target === event.currentTarget) {
+    togglePopup();
+  }
+})
+
+openPopup.addEventListener('click', function () {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileJob.textContent;
+  togglePopup();
+});
+
+
