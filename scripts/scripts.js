@@ -22,12 +22,6 @@ closePopup.addEventListener('click', togglePopup);
 
 formElement.addEventListener('submit', formSubmitHandler);
 
-popup.addEventListener('click', function (event) {
-  if (event.target === event.currentTarget) {
-    togglePopup();
-  }
-})
-
 openPopup.addEventListener('click', function () {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileJob.textContent;
