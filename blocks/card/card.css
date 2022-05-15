@@ -6,7 +6,7 @@
   border-radius: 10px;
   margin: auto;
   box-sizing: border-box;
-  position: relative;  
+  position: relative;
   overflow: hidden;
   z-index: 1;
 }
