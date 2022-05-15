@@ -17,3 +17,14 @@
     padding: 0;
   }
 }
+@media screen and (max-width: 930px){
+  .page{
+     margin: 48px 20px 60px 20px;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .page{
+     margin: 28px 20px 36px 20px;
+  }
+}
