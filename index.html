@@ -27,67 +27,54 @@
         </div>
         <button type="button" class="profile__add"></button>
       </section>
-      <section class="elements">
-        <div class="card">
-          <img src="https://top10a.ru/wp-content/uploads/2020/01/lastochkino_gnezdo_swallow_nest2-1shyu.jpg" alt="Крым"
-            class="card__img">
-          <div class="card__item">
-            <h2 class="card__title">Крым</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://kuda-spb.ru/uploads/d76af2f8fc698b0d26c7d9e46b626c34.jpg" alt="Петергоф" class="card__img">
-          <div class="card__item">
-            <h2 class="card__title">Петергоф</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://traveltimes.ru/wp-content/uploads/2021/08/piter.jpg" alt="Санкт-Петербург"
-            class="card__img">
-          <div class="card__item">
-            <h2 class="card__title">Санкт-Петербург</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://imagesbase.ru/uploads/posts/2020-10/1601633197_imagesbase.ru.jpg" alt="Москва"
-            class="card__img">
-          <div class="card__item">
-            <h2 class="card__title">Москва</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://mwtravel.ru/wp-content/uploads/2018/02/6-Buhta-Peschanaja-Poberezhe-Bajkala.jpg"
-            alt="Байкал" class="card__img">
-          <div class="card__item">
-            <h2 class="card__title">Байкал</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://nomadsclub.ru/uploads/posts/2018-09/1536504194_a.jpg" alt="Архыз" class="card__img">
-          <div class="card__item">
-            <h2 class="card__title">Архыз</h2>
-            <button type="button" class="card__like"></button>
-          </div>
-        </div>
+      <section>
+        <ul class="elements"></ul>
       </section>
+
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2022 Квасников Даниил</p>
     </footer>
-    <div class="popup">
+
+    <template id="elements">
+      <li class="element">
+        <img src="#" alt="" class="element__image" />
+        <img src="./images/Trash.svg" alt="Удалить" class="element__del"/>
+        <div class="element__footer">
+          <h2 class="element__title"></h2>
+          <button class="element__like" type="button" aria-label="лайк"></button>
+        </div>
+      </li>
+    </template>
+    <div class="popup popup_edit">
       <div class="popup__container">
-        <button type="button" class="popup__close" aria-label="close"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="form" name="form">
-          <input type="text" class="form__info" value="Жак-Ив Кусто" id="name" name="name">
-          <input type="text" class="form__info" value="Исследователь океана" id="description" name="description">
-          <button type="submit" class="form__button" aria-label="save">Сохранить</button>
+        <button class="popup__close popup__close_edit" type="button" aria-label="закрыть"></button>
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <form class="popup__form popup__form_edit" name="popupForm">
+          <input type="text" name="popupName" class="popup__name popup__name_edit" placeholder="Имя" />
+          <input type="text" name="popupJob" class="popup__job popup__job_edit"
+            placeholder="О себе" />
+          <button class="popup__button popup__button_edit" type="submit" aria-label="сохранить">Сохранить</button>
         </form>
+      </div>
+    </div>
+    <div class="popup popup_add">
+      <div class="popup__container">
+        <button class="popup__close popup__close_add" type="button" aria-label="закрыть"></button>
+        <h3 class="popup__title">Новое место</h3>
+        <form class="popup__form popup__form_add" name="popupAddForm">
+          <input type="text" name="popupaddName" class="popup__name popup__name_add" placeholder="Название" />
+          <input type="text" name="popupAddLink" class="popup__link popup__link_add"
+            placeholder="Ссылка на картинку" />
+          <button class="popup__button popup__button_add" type="submit" aria-label="Создать">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_image">
+      <div class="popup__container-image">
+        <button class="popup__close popup__close_image" type="button" aria-label="закрыть"></button>
+        <img src="#" alt="" class="popup__image" />
+        <h2 class="popup__title-image"></h2>
       </div>
     </div>
   </div>
