@@ -36,24 +36,15 @@
       <p class="footer__copyright">© 2022 Квасников Даниил</p>
     </footer>
 
-    <template id="elements">
-      <li class="element">
-        <img src="#" alt="" class="element__image" />
-        <img src="./images/Trash.svg" alt="Удалить" class="element__del"/>
-        <div class="element__footer">
-          <h2 class="element__title"></h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </li>
-    </template>
+    
     <div class="popup popup_edit">
       <div class="popup__container">
         <button class="popup__close popup__close_edit" type="button" aria-label="закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form popup__form_edit" name="popupForm">
-          <input type="text" name="popupName" class="popup__name popup__name_edit" placeholder="Имя" />
+          <input type="text" name="popupName" class="popup__name popup__name_edit" placeholder="Имя" required/>
           <input type="text" name="popupJob" class="popup__job popup__job_edit"
-            placeholder="О себе" />
+            placeholder="О себе" required/>
           <button class="popup__button popup__button_edit" type="submit" aria-label="сохранить">Сохранить</button>
         </form>
       </div>
@@ -63,9 +54,9 @@
         <button class="popup__close popup__close_add" type="button" aria-label="закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form popup__form_add" name="popupAddForm">
-          <input type="text" name="popupaddName" class="popup__name popup__name_add" placeholder="Название" />
+          <input type="text" name="popupaddName" class="popup__name popup__name_add" placeholder="Название" required/>
           <input type="text" name="popupAddLink" class="popup__link popup__link_add"
-            placeholder="Ссылка на картинку" />
+            placeholder="Ссылка на картинку" required/>
           <button class="popup__button popup__button_add" type="submit" aria-label="Создать">Создать</button>
         </form>
       </div>
@@ -78,7 +69,18 @@
       </div>
     </div>
   </div>
-  <script src="./scripts/scripts.js"></script>
+  <template id="elements">
+      <li class="element">
+        <img src="#" alt="" class="element__image" />
+        <img src="./images/Trash.svg" alt="Удалить" class="element__del"/>
+        <div class="element__footer">
+          <h2 class="element__title"></h2>
+          <button class="element__like" type="button" aria-label="лайк"></button>
+        </div>
+      </li>
+    </template>
+    <script src="./scripts/cards.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
