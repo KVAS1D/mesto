@@ -14,7 +14,7 @@ const popupImage = document.querySelector(".popup__image");
 const popupImageTitle = document.querySelector(".popup__title-image");
 const buttonFormAdd = document.querySelector('.popup__form_add');
 const buttonFormEdit = document.querySelector('.popup__form_edit');
-const element = document.querySelector(".elements");
+const elements = document.querySelector(".elements");
 const cardElement = document.querySelector("#elements").content.querySelector(".element");
 
 function closePopupElement(popupElement) {
@@ -90,6 +90,9 @@ buttonAdd.addEventListener("click", () => {
   nameInput.value = '';
   linkInput.value = '';
   openPopupElement(windowAdd);
+  const popupButtonAdd = document.querySelector('.popup__button_add');
+  popupButtonAdd.disabled = true;
+  popupButtonAdd.classList.add('popup__button_valid');
 });
 
 buttonFormEdit.addEventListener('submit', (e) => {
@@ -101,12 +104,10 @@ buttonFormEdit.addEventListener('submit', (e) => {
   }
 });
 
-buttonFormAdd.addEventListener('submit', (e) => {
-  if (buttonFormAdd.checkValidity()) {
+buttonFormAdd.addEventListener('submit', (e) => {  
     e.preventDefault();
-    element.prepend(generateElement({ link: linkInput.value, name: nameInput.value }));    
-    closePopupElement(windowAdd);        
-  }
+    elements.prepend(generateElement({ link: linkInput.value, name: nameInput.value }));
+    closePopupElement(windowAdd); 
 });
 
 popups.forEach((e) => {
@@ -114,5 +115,5 @@ popups.forEach((e) => {
 });
 
 initialCards.forEach((addCard) => {
-  element.append(generateElement(addCard));
+  elements.append(generateElement(addCard));
 });

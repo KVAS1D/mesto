@@ -53,12 +53,12 @@
       <div class="popup__container">
         <button class="popup__close popup__close_add" type="button" aria-label="закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
-        <form id="addForm" class="popup__form popup__form_add" name="popupAddForm" novalidate>
+        <form id="addForm" class="popup__form popup__form_add " name="popupAddForm" novalidate>
           <input id="add-name-input" type="text" name="popupAddName" class="popup__name popup__name_add popup__input" minlength="2" maxlength="30" placeholder="Название" required />
           <span class="add-name-input-error"></span>
           <input id="url-input" type="url" name="popupAddLink" class="popup__link popup__link_add popup__input" placeholder="Ссылка на картинку" required />
           <span class="url-input-error"></span>
-          <button class="popup__button popup__button_add" type="submit" aria-label="Создать">Создать</button>
+          <button disabled="true" class="popup__button popup__button_add" type="submit" aria-label="Создать">Создать</button>
         </form>
       </div>
     </div>
