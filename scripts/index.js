@@ -14,7 +14,7 @@ const popupImage = document.querySelector(".popup__image");
 const popupImageTitle = document.querySelector(".popup__title-image");
 const buttonFormAdd = document.querySelector('.popup__form_add');
 const buttonFormEdit = document.querySelector('.popup__form_edit');
-const element = document.querySelector(".elements");
+const elements = document.querySelector(".elements");
 const cardElement = document.querySelector("#elements").content.querySelector(".element");
 
 function closePopupElement(popupElement) {
@@ -104,10 +104,12 @@ buttonFormEdit.addEventListener('submit', (e) => {
   }
 });
 
-buttonFormAdd.addEventListener('submit', (e) => {  
+buttonFormAdd.addEventListener('submit', (e) => {
+    
     e.preventDefault();
-    elements.prepend(generateElement({ link: linkInput.value, name: nameInput.value }));
-    closePopupElement(windowAdd); 
+    elements.prepend(generateElement({ link: linkInput.value, name: nameInput.value }));    
+    closePopupElement(windowAdd);
+  
 });
 
 popups.forEach((e) => {
