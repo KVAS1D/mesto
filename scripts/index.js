@@ -90,8 +90,7 @@ buttonAdd.addEventListener("click", () => {
   nameInput.value = '';
   linkInput.value = '';
   openPopupElement(windowAdd);
-  const popupButtonAdd = document.querySelector('.popup__button_add');
-  popupButtonAdd.disabled = true;
+  const popupButtonAdd = document.querySelector('.popup__button_add');  
   popupButtonAdd.classList.add('popup__button_valid');
 });
 
