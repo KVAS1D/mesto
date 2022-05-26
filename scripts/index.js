@@ -90,8 +90,8 @@ buttonAdd.addEventListener("click", () => {
   nameInput.value = '';
   linkInput.value = '';
   openPopupElement(windowAdd);
-  const popupButtonAdd = document.querySelector('.popup__button_add');  
-  popupButtonAdd.classList.add('popup__button_valid');
+  const popupButtonAdd = document.querySelector('.popup__button_add');
+  disableSubmitButton(popupButtonAdd, options);
 });
 
 buttonFormEdit.addEventListener('submit', (e) => {
@@ -104,11 +104,11 @@ buttonFormEdit.addEventListener('submit', (e) => {
 });
 
 buttonFormAdd.addEventListener('submit', (e) => {
-    
-    e.preventDefault();
-    elements.prepend(generateElement({ link: linkInput.value, name: nameInput.value }));    
-    closePopupElement(windowAdd);
-  
+
+  e.preventDefault();
+  elements.prepend(generateElement({ link: linkInput.value, name: nameInput.value }));
+  closePopupElement(windowAdd);
+
 });
 
 popups.forEach((e) => {
