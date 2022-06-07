@@ -47,7 +47,9 @@ class Card {
 
   _generateElement() {
     this.cardTemplate = document.querySelector('.template').content;
-    this.newElement = this.cardTemplate.querySelector(this._cardSelector).cloneNode(true);
+    this.newElement = this.cardTemplate
+    .querySelector(this._cardSelector)
+    .cloneNode(true);
     this.cardImage = this.newElement.querySelector('.element__image');
 
     this.cardImage.alt = this._title;
