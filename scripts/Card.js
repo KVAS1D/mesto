@@ -45,6 +45,8 @@ class Card {
     openPopupElement(this.popupImage);
   }
 
+  
+  
   _generateElement() {
     this.cardTemplate = document.querySelector('.template').content;
     this.newElement = this.cardTemplate
