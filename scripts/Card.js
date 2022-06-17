@@ -45,13 +45,17 @@ class Card {
     openPopupElement(this.popupImage);
   }
 
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._cardSelector)
+      .content
+      .querySelector('.element')
+      .cloneNode(true);
+    this.newElement=cardElement;
+  } 
   
-  
-  _generateElement() {
-    this.cardTemplate = document.querySelector('.template').content;
-    this.newElement = this.cardTemplate
-    .querySelector(this._cardSelector)
-    .cloneNode(true);
+  _generateElement() {   
+    
     this.cardImage = this.newElement.querySelector('.element__image');
 
     this.cardImage.alt = this._title;
@@ -60,6 +64,7 @@ class Card {
   }
 
   renderCard() {
+    this._getTemplate();
     this._generateElement();
 
     this._setEventListeners();

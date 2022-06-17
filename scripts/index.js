@@ -56,7 +56,7 @@ function renderCard(parentSelector, card) {
 }
 
 initialCards.forEach((item) => {
-  renderCard(elements, new Card(item, '.element').renderCard());
+  renderCard(elements, new Card(item, '.template').renderCard());
 });
 
 function clearAddCardForm() {
@@ -87,7 +87,7 @@ function addCard(e) {
     link: link,
   };
 
-  renderCard(elements, new Card(card, '.element').renderCard());
+  renderCard(elements, new Card(card, '.template').renderCard());
   closePopupElement(windowAdd);
 }
 
