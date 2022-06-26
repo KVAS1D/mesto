@@ -1,0 +1,11 @@
+.element__del {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	transition: opacity 0.3s linear;
+}
+
+.element__del:hover {
+	opacity: 0.6;
+	cursor: pointer;
+}
