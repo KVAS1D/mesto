@@ -1,7 +1,13 @@
 .element__del {
 	position: absolute;
-	top: 20px;
-	right: 20px;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    background: url(../../../images/trash.svg) center center/cover no-repeat;
+    width: 18px;
+    height: 19px;
+    border: none;
+    align-self: center;
 	transition: opacity 0.3s linear;
 }
 
