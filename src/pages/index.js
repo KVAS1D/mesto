@@ -19,7 +19,7 @@ const section = new Section(
     items: initialCards,
     renderer(item) {
       section.prependItem(
-        new Card(item, '.card-template', (e) => {
+        new Card(item, '.template', (e) => {
           popupWithImage.open(e);
         }).renderCard()
       );
