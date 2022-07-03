@@ -1,4 +1,3 @@
-import { initialCards, valid } from '../components/cards.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Card from '../components/Card.js';
@@ -6,7 +5,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
-import { fieldEditProfileName, fieldEditProfileJob } from '../components/utilities.js';
+import { fieldEditProfileName, fieldEditProfileJob, initialCards, valid } from '../utils/constants.js';
 
 const profileEdit = document.querySelector('.profile__edit');
 const buttonAdd = document.querySelector('.profile__add');
@@ -31,7 +30,7 @@ section.renderItems();
 
 const userInfo = new UserInfo({
   name: '.profile__name',
-  description: '.profile__job',
+  job: '.profile__job',
 });
 
 const cardValidator = new FormValidator(
@@ -43,7 +42,7 @@ cardValidator.enableValidation();
 
 const popupCards = new PopupWithForm('.popup_add', (e) => {
   e.preventDefault();
-  section.addItem(popupCards.getInputValues());
+  section.addItem(popupCards._getInputValues());
   popupCards.close();
 });
 
@@ -51,12 +50,9 @@ popupCards.setEventListeners();
 
 const popupProfile = new PopupWithForm('.popup_edit', (e) => {
   e.preventDefault();
-
-  const data = popupProfile.getInputValues();
-
+  const data = popupProfile._getInputValues();
   userInfo.setUserInfo(data.name, data.descr);
-
-  popupProfile.close();
+  popupProfile.close();  
 });
 
 popupProfile.setEventListeners();
@@ -74,7 +70,7 @@ profileEdit.addEventListener('click', () => {
   const data = userInfo.getUserInfo();
 
   fieldEditProfileName.value = data.name;
-  fieldEditProfileJob.value = data.description;
+  fieldEditProfileJob.value = data.job;
 
   profileValidator.resetValidation();
 });
