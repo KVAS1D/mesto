@@ -17,7 +17,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer(item) {
-      section.prependItem(
+      section.addItem(
         new Card(item, '.template', (e) => {
           popupWithImage.open(e);
         }).renderCard()
@@ -40,19 +40,21 @@ const cardValidator = new FormValidator(
 
 cardValidator.enableValidation();
 
-const popupCards = new PopupWithForm('.popup_add', (e) => {
-  e.preventDefault();
-  section.addItem(popupCards._getInputValues());
+const popupCards = new PopupWithForm('.popup_add', (inputValues) => {
+  section.addItem(new Card
+    (inputValues, '.template', (e) => {
+      popupWithImage.open(e);
+    })
+    .renderCard());
   popupCards.close();
 });
 
 popupCards.setEventListeners();
 
-const popupProfile = new PopupWithForm('.popup_edit', (e) => {
-  e.preventDefault();
-  const data = popupProfile._getInputValues();
+const popupProfile = new PopupWithForm('.popup_edit', (inputValues) => {
+  const data = inputValues;
   userInfo.setUserInfo(data.name, data.descr);
-  popupProfile.close();  
+  popupProfile.close();
 });
 
 popupProfile.setEventListeners();
