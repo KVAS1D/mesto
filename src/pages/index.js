@@ -1,3 +1,4 @@
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js'
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Card from '../components/Card.js';
@@ -5,80 +6,151 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css';
-import { fieldEditProfileName, fieldEditProfileJob, initialCards, valid } from '../utils/constants.js';
+import {valid, buttonEditProfile, avatar, fieldEditProfileName, fieldEditProfileJob, buttonFotoAdd } from '../utils/constants.js';
+import Api from '../components/Api.js';
 
-const profileEdit = document.querySelector('.profile__edit');
-const buttonAdd = document.querySelector('.profile__add');
+const api = new Api({
+   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
+   pass: 'eba047a0-9a84-4b5f-a16d-8cb313301f0e'
+});
+
+const createCard = function (card) {
+   const userCard = new Card(card, '.template', handleCardClick, popupSure, userInfo, api);
+   const newCard = userCard.createCard();
+   return newCard
+}
+
+const insertCard = (card) => {
+   const newCard = {
+      name: card.name,
+      link: card.link,
+      likes: card.likes,
+      id: card._id,
+      owner: card.owner._id
+   };
+   section.renderItems(newCard);
+}
+
+const section = new Section({
+   items: [],
+   renderer: (card) => {
+      const newCard = createCard(card);
+      section.addItem(newCard);
+   }
+}, '.elements');
+
+const userInfo = new UserInfo(
+   '.profile__name', 
+   '.profile__job', 
+   '.profile__image'
+   );
+
+const getUserInfo = () => {
+   Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cards]) => {
+         userInfo.setUserInfo(userData.name, userData.about, userData.avatar, userData._id);
+         cards.reverse().forEach(card => {
+               insertCard(card)
+            });
+      })
+      .catch(api.catchError); 
+}
+
+getUserInfo();
+
+const popupProfile = new PopupWithForm({
+   selector: '.popup_edit',
+   submitFunction: (input) => {
+      popupProfile.btt.textContent = 'Сохранение...';     
+      api.setUserInfo(input.profilename, input.profiledescription)
+         .then((result) => {
+            userInfo.setUserInfo(result.name, result.about, result.avatar);
+            popupProfile.close();
+         })
+         .catch(api.catchError)
+         .finally(() => {
+            popupProfile.btt.textContent = 'Сохранить';
+         })
+   }
+});
+popupProfile.setEventListeners();
+
+buttonEditProfile.addEventListener('click', function () {
+   const profile = userInfo.getUserInfo();
+   fieldEditProfileName.value = profile.name;
+   fieldEditProfileJob.value = profile.job;
+   popupProfile.open();
+});
+
+const validProfile = new FormValidator(valid, popupProfile._form);
+validProfile.enableValidation();
+
+
+const popupAvatar = new PopupWithForm({
+   selector:'.popup_edit_photo',
+   submitFunction: (input) => {
+      popupAvatar.btt.textContent = 'Сохранение...';
+      api.setAvatar(input.avatar)
+         .then((result) => {
+            userInfo.setUserInfo(result.name, result.about, result.avatar);
+            popupAvatar.close();          
+         })
+         .catch(api.catchError)
+         .finally(() => {
+            popupAvatar.btt.textContent = 'Сохранить';
+         })      
+   }
+});
+popupAvatar.setEventListeners();
+const validAvatar = new FormValidator(valid, popupAvatar._form);
+validAvatar.enableValidation();
+
+avatar.addEventListener('click', function () {
+   validAvatar._disableButton();
+   popupAvatar.open()
+})
+
+const popupCards = new PopupWithForm({
+   selector:'.popup_add',
+   submitFunction: (input) => {
+      popupCards.btt.textContent = 'Сохранение...';
+      api.addCard(input.fotoname, input.fotolink)
+         .then((card) => {
+            insertCard(card);
+            popupCards.close();            
+         })
+         .catch(api.catchError)
+         .finally(() => {
+            popupCards.btt.textContent = 'Создать';
+         })       
+   }
+});
+popupCards.setEventListeners();
+
+buttonFotoAdd.addEventListener('click', () => {
+   validPopupAdd._disableButton();
+   popupCards.open();
+});
+
+const validPopupAdd = new FormValidator(valid, popupCards._form);
+validPopupAdd.enableValidation();
+
+const popupSure = new PopupWithConfirmation({
+   selector: '.popup_type_sure',
+   submitFunction: (photo, id) => {
+      api.deleteCard(id)
+         .then(() => { 
+            photo.remove()
+            popupSure.close();
+         })
+         .catch(api.catchError);       
+   }
+});
+popupSure.setEventListeners();
 
 const popupWithImage = new PopupWithImage('.popup_img');
 popupWithImage.setEventListeners();
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer(item) {
-      section.addItem(
-        new Card(item, '.template', (e) => {
-          popupWithImage.open(e);
-        }).renderCard()
-      );
-    },
-  },
-  '.elements'
-);
-section.renderItems();
-
-const userInfo = new UserInfo({
-  name: '.profile__name',
-  job: '.profile__job',
-});
-
-const cardValidator = new FormValidator(
-  valid,
-  '.popup__form_add'
-);
-
-cardValidator.enableValidation();
-
-const popupCards = new PopupWithForm('.popup_add', (inputValues) => {
-  section.addItem(new Card
-    (inputValues, '.template', (e) => {
-      popupWithImage.open(e);
-    })
-    .renderCard());
-  popupCards.close();
-});
-
-popupCards.setEventListeners();
-
-const popupProfile = new PopupWithForm('.popup_edit', (inputValues) => {
-  const data = inputValues;
-  userInfo.setUserInfo(data.name, data.descr);
-  popupProfile.close();
-});
-
-popupProfile.setEventListeners();
-
-const profileValidator = new FormValidator(
-  valid,
-  '.popup__form_edit'
-);
-
-profileValidator.enableValidation();
-
-profileEdit.addEventListener('click', () => {
-  popupProfile.open();
-
-  const data = userInfo.getUserInfo();
-
-  fieldEditProfileName.value = data.name;
-  fieldEditProfileJob.value = data.job;
-
-  profileValidator.resetValidation();
-});
-
-buttonAdd.addEventListener('click', () => {
-  cardValidator.resetValidation();
-
-  popupCards.open();
-});
+const handleCardClick = (name, link) => {
+   popupWithImage.open(name, link)
+}
