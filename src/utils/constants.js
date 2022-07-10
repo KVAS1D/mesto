@@ -3,8 +3,7 @@ export const valid = {
   submitButtonSelector: '.popup__button',
   validButtonClass: 'popup__button_valid',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-  submitButtonSelector: '.popup__button',  
+  errorClass: 'popup__error_visible',    
 };
 
 const buttonEditProfile = document.querySelector('.profile__edit');
