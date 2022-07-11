@@ -41,10 +41,10 @@
         <button class="popup__close popup__close_edit" type="button" aria-label="закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form id="editForm" class="popup__form popup__form_edit" name="popupForm" novalidate>
-          <input id="name-input" type="text" name="profilename" class="popup__name popup__name_edit popup__input"
+          <input type="text" name="profilename" class="popup__name popup__name_edit popup__input"
             minlength="2" maxlength="40" placeholder="Имя" required />
           <span class="popup__input-error profilename-error"></span>
-          <input id="job-input" type="text" name="profiledescription" class="popup__job popup__job_edit popup__input"
+          <input type="text" name="profiledescription" class="popup__job popup__job_edit popup__input"
             minlength="2" maxlength="200" placeholder="О себе" required />
           <span class="popup__input-error profiledescription-error"></span>
           <button class="popup__button popup__button_edit" type="submit" aria-label="сохранить">Сохранить</button>
@@ -100,7 +100,7 @@
   <template class="template">
     <li class="element">
       <img src="#" alt="" class="element__image"/>
-      <button type="button" class="element__del"></button>
+      <button type="button" class="element__del element__del_hidden "></button>
       <div class="element__footer">
         <h2 class="element__title"></h2>
         <div>

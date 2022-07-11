@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, selector, handleCardClick, popupSure, user, api) {
+  constructor(data, selector, handleCardClick, popupSure, user, like) {
      this._id = data.id;
      this._owner = data.owner;
      this._name = data.name;
@@ -8,7 +8,7 @@ export default class Card {
      this._isLiked = false;
      this._user = user;
      this._popupSure = popupSure;
-     this._api = api;
+     this._like = like;
      data.likes.forEach(like => {
         if (like._id == this._user.id) {
            this._isLiked = true;
@@ -30,19 +30,19 @@ export default class Card {
 
   _togglelike() {
      if (this._likeButton.classList.contains(this._selectorIsLiked)) {
-        this._api.deleteLike(this._id)
+        this._like.deleteLike(this._id)
            .then((result) => {
               this._card.querySelector('.element__like-counter').textContent = result.likes.length;
               this._likeButton.classList.remove(this._selectorIsLiked);
            })
-           .catch(this._api.catchError); 
+           .catch(this._like.catchError); 
      } else {
-        this._api.putLike(this._id)
+        this._like.putLike(this._id)
            .then((result) => {
               this._card.querySelector('.element__like-counter').textContent = result.likes.length;
               this._likeButton.classList.add(this._selectorIsLiked);
            })
-           .catch(this._api.catchError); 
+           .catch(this._like.catchError); 
      }
   }
 
@@ -68,7 +68,7 @@ export default class Card {
         this._likeButton.classList.add(this._selectorIsLiked);
      }
      if (this._owner == this._user.id) {
-        this._card.querySelector('.element__del').classList.add('element__delete-button_active');
+        this._card.querySelector('.element__del').classList.remove('element__del_hidden');
      }
      this._setEventListeners();
      return this._card;

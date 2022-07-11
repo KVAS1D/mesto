@@ -34,7 +34,7 @@ export default class FormValidator{
      this._formButton.disabled = false;
   }
 
-  _disableButton = () => {
+  disableButton = () => {
      this._formButton.classList.add(this._validButtonClass);
      this._formButton.disabled = true;
   }
@@ -44,7 +44,7 @@ export default class FormValidator{
         this.enableSubmitButton();
      }
      else {
-        this._disableButton();
+        this.disableButton();
      }
   }
 
@@ -63,10 +63,7 @@ export default class FormValidator{
      })
   }
 
-  enableValidation = () => {
-     this._formSelector.addEventListener('submit', (ev) => {
-           ev.preventDefault();
-     });
+  enableValidation = () => {     
      this._isValid();
   }
 }

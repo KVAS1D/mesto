@@ -11,7 +11,7 @@ import Api from '../components/Api.js';
 
 const api = new Api({
    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
-   pass: 'eba047a0-9a84-4b5f-a16d-8cb313301f0e'
+   headers: 'eba047a0-9a84-4b5f-a16d-8cb313301f0e'
 });
 
 const createCard = function (card) {
@@ -60,8 +60,7 @@ getUserInfo();
 
 const popupProfile = new PopupWithForm({
    selector: '.popup_edit',
-   submitFunction: (input) => {
-      popupProfile.btt.textContent = 'Сохранение...';     
+   submitFunction: (input) => {      
       api.setUserInfo(input.profilename, input.profiledescription)
          .then((result) => {
             userInfo.setUserInfo(result.name, result.about, result.avatar);
@@ -69,7 +68,7 @@ const popupProfile = new PopupWithForm({
          })
          .catch(api.catchError)
          .finally(() => {
-            popupProfile.btt.textContent = 'Сохранить';
+            popupProfile.setDefaultText();
          })
    }
 });
@@ -88,8 +87,7 @@ validProfile.enableValidation();
 
 const popupAvatar = new PopupWithForm({
    selector:'.popup_edit_photo',
-   submitFunction: (input) => {
-      popupAvatar.btt.textContent = 'Сохранение...';
+   submitFunction: (input) => {      
       api.setAvatar(input.avatar)
          .then((result) => {
             userInfo.setUserInfo(result.name, result.about, result.avatar);
@@ -97,7 +95,7 @@ const popupAvatar = new PopupWithForm({
          })
          .catch(api.catchError)
          .finally(() => {
-            popupAvatar.btt.textContent = 'Сохранить';
+            popupAvatar.setDefaultText();
          })      
    }
 });
@@ -106,14 +104,14 @@ const validAvatar = new FormValidator(valid, popupAvatar._form);
 validAvatar.enableValidation();
 
 avatar.addEventListener('click', function () {
-   validAvatar._disableButton();
+   validAvatar.disableButton();
    popupAvatar.open()
 })
 
 const popupCards = new PopupWithForm({
    selector:'.popup_add',
-   submitFunction: (input) => {
-      popupCards.btt.textContent = 'Сохранение...';
+   submitFunction: (input) => {      
+
       api.addCard(input.fotoname, input.fotolink)
          .then((card) => {
             insertCard(card);
@@ -121,14 +119,14 @@ const popupCards = new PopupWithForm({
          })
          .catch(api.catchError)
          .finally(() => {
-            popupCards.btt.textContent = 'Создать';
+            popupCards.setDefaultText();
          })       
    }
 });
 popupCards.setEventListeners();
 
 buttonFotoAdd.addEventListener('click', () => {
-   validPopupAdd._disableButton();
+   validPopupAdd.disableButton();
    popupCards.open();
 });
 

@@ -1,11 +1,11 @@
 export default class Api {
    constructor(options) {
       this._url = options.baseUrl;
-      this._pass = options.pass;
+      this._headers = options.headers;
    }
  
     _checkResponse(res) {
-       if (res.ok) {    
+       if (res.ok) {
           return res.json();
        }
           return Promise.reject(`Ошибка ${res.status}`);
@@ -20,7 +20,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'GET',
           headers: {
-             authorization: this._pass
+             authorization: this._headers
           }
        })
        .then(this._checkResponse)
@@ -31,7 +31,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'PATCH',
           headers: {
-             authorization: this._pass,
+             authorization: this._headers,
              'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -47,7 +47,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'PATCH',
           headers: {
-             authorization: this._pass,
+             authorization: this._headers,
              'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -62,7 +62,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'GET',
           headers: {
-          authorization: this._pass
+          authorization: this._headers
        }
        })
       .then(this._checkResponse)
@@ -73,7 +73,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'POST',
           headers: {
-             authorization: this._pass,
+             authorization: this._headers,
              'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -89,7 +89,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'DELETE',
           headers: {
-             authorization: this._pass
+             authorization: this._headers
           }
        })
        .then(this._checkResponse)
@@ -100,7 +100,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'PUT',
           headers: {
-             authorization: this._pass
+             authorization: this._headers
           }
        })
        .then(this._checkResponse)
@@ -110,7 +110,7 @@ export default class Api {
        return fetch(setUrl, {
           method: 'DELETE',
           headers: {
-             authorization: this._pass
+             authorization: this._headers
           }
        })
        .then(this._checkResponse)
