@@ -15,19 +15,19 @@ const api = new Api({
 });
 
 const createCard = function (card) {
-   const userCard = new Card(card, '.template', handleCardClick, popupSure, userInfo, api);
-   const newCard = userCard.createCard();
+   const userCard = new Card(card, '.template', handleCardClick, popupSure, userInfo);   
+   const newCard = userCard.createCard(popupSure, putLike, delLike);
    return newCard
 }
 
 const insertCard = (card) => {
-   const newCard = {
+   const newCard = [{
       name: card.name,
       link: card.link,
       likes: card.likes,
       id: card._id,
       owner: card.owner._id
-   };
+   }];
    section.renderItems(newCard);
 }
 
@@ -39,11 +39,11 @@ const section = new Section({
    }
 }, '.elements');
 
-const userInfo = new UserInfo(
-   '.profile__name', 
-   '.profile__job', 
-   '.profile__image'
-   );
+const userInfo = new UserInfo({
+   name:'.profile__name', 
+   description:'.profile__job', 
+   avatar:'.profile__image'
+});
 
 const getUserInfo = () => {
    Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -130,6 +130,20 @@ buttonFotoAdd.addEventListener('click', () => {
    popupCards.open();
 });
 
+const delLike = function(card) {   
+   api.deleteLike(card._id)   
+   .then((result) => {
+     card.togglelike(result.likes.length);
+   })
+   .catch(api.catchError);
+}
+const putLike = function(card) {
+   api.putLike(card._id)   
+   .then((result) => {
+   card.togglelike(result.likes.length);
+   })
+   .catch(api.catchError);           
+}
 const validPopupAdd = new FormValidator(valid, popupCards._form);
 validPopupAdd.enableValidation();
 
@@ -137,14 +151,15 @@ const popupSure = new PopupWithConfirmation({
    selector: '.popup_type_sure',
    submitFunction: (photo, id) => {
       api.deleteCard(id)
-         .then(() => { 
+         .then(() => {            
             photo.remove()
-            popupSure.close();
+            popupSure.close();            
          })
          .catch(api.catchError);       
    }
 });
 popupSure.setEventListeners();
+
 
 const popupWithImage = new PopupWithImage('.popup_img');
 popupWithImage.setEventListeners();

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, selector, handleCardClick, popupSure, user, like) {
+  constructor(data, selector, handleCardClick, popupSure, user) {
      this._id = data.id;
      this._owner = data.owner;
      this._name = data.name;
@@ -7,8 +7,7 @@ export default class Card {
      this._likes = data.likes.length;
      this._isLiked = false;
      this._user = user;
-     this._popupSure = popupSure;
-     this._like = like;
+     this._popupSure = popupSure;    
      data.likes.forEach(like => {
         if (like._id == this._user.id) {
            this._isLiked = true;
@@ -28,36 +27,37 @@ export default class Card {
      return userCard;
   }
 
-  _togglelike() {
-     if (this._likeButton.classList.contains(this._selectorIsLiked)) {
-        this._like.deleteLike(this._id)
-           .then((result) => {
-              this._card.querySelector('.element__like-counter').textContent = result.likes.length;
-              this._likeButton.classList.remove(this._selectorIsLiked);
-           })
-           .catch(this._like.catchError); 
-     } else {
-        this._like.putLike(this._id)
-           .then((result) => {
-              this._card.querySelector('.element__like-counter').textContent = result.likes.length;
-              this._likeButton.classList.add(this._selectorIsLiked);
-           })
-           .catch(this._like.catchError); 
+  _handleLike(putLike, delLike){
+   if (this._likeButton.classList.contains(this._selectorIsLiked)) {
+      delLike(this);
+   }
+   else {
+      putLike(this);
+   }
+  }
+
+  togglelike(likesAmount) {
+     if (this._likeButton.classList.contains(this._selectorIsLiked)) {      
+      this._card.querySelector('.element__like-counter').textContent = likesAmount;
+      this._likeButton.classList.remove(this._selectorIsLiked);
+     } else {      
+      this._card.querySelector('.element__like-counter').textContent = likesAmount;
+      this._likeButton.classList.add(this._selectorIsLiked);
      }
   }
 
-  _deleteCard() {
-     this._popupSure.open(this._card, this._id);
+  deleteCard() {
+     this._card.remove();
   }
-
-  _setEventListeners() {
+  
+  _setEventListeners(removePopup, putLike, delLike) {
      this._picture.addEventListener('click', () => this._handleCardClick(this._name, this._link));
-     this._likeButton.addEventListener('click', () => this._togglelike());
-     this._card.querySelector('.element__del').addEventListener('click', () => this._deleteCard());
+     this._likeButton.addEventListener('click', () => this._handleLike(putLike, delLike));
+     this._card.querySelector('.element__del').addEventListener('click', () => removePopup.open(this._card, this._id));     
   }  
 
-  createCard() {
-     this._card = this._getTemplate();
+  createCard(removePopup, putLike, delLike) {
+     this._card = this._getTemplate();     
      this._picture = this._card.querySelector('.element__image');
      this._picture.src = this._link;
      this._picture.alt = this._name;
@@ -70,7 +70,8 @@ export default class Card {
      if (this._owner == this._user.id) {
         this._card.querySelector('.element__del').classList.remove('element__del_hidden');
      }
-     this._setEventListeners();
+     this.togglelike= this.togglelike;
+     this._setEventListeners(removePopup, putLike, delLike);     
      return this._card;
   }
 };
