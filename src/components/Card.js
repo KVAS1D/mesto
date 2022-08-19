@@ -53,7 +53,7 @@ export default class Card {
   _setEventListeners(removePopup, putLike, delLike) {
      this._picture.addEventListener('click', () => this._handleCardClick(this._name, this._link));
      this._likeButton.addEventListener('click', () => this._handleLike(putLike, delLike));
-     this._card.querySelector('.element__del').addEventListener('click', () => removePopup.open(this._card, this._id));     
+     this._card.querySelector('.element__del').addEventListener('click', () => removePopup.open(this));     
   }  
 
   createCard(removePopup, putLike, delLike) {
