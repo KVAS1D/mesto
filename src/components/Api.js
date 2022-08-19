@@ -19,9 +19,7 @@ export default class Api {
        const setUrl = this._url + '/users/me'
        return fetch(setUrl, {
           method: 'GET',
-          headers: {
-             authorization: this._headers
-          }
+          headers: this._headers
        })
        .then(this._checkResponse)
     }
@@ -30,10 +28,7 @@ export default class Api {
        const setUrl = this._url + '/users/me'
        return fetch(setUrl, {
           method: 'PATCH',
-          headers: {
-             authorization: this._headers,
-             'Content-Type': 'application/json'
-          },
+          headers: this._headers,
           body: JSON.stringify({
              name: name,
              about: description
@@ -46,10 +41,7 @@ export default class Api {
        const setUrl = this._url + '/users/me/avatar'
        return fetch(setUrl, {
           method: 'PATCH',
-          headers: {
-             authorization: this._headers,
-             'Content-Type': 'application/json'
-          },
+          headers: this._headers,
           body: JSON.stringify({
              avatar: link
           })
@@ -61,9 +53,7 @@ export default class Api {
        const setUrl = this._url + '/cards'
        return fetch(setUrl, {
           method: 'GET',
-          headers: {
-          authorization: this._headers
-       }
+          headers: this._headers
        })
       .then(this._checkResponse)
    }
@@ -72,10 +62,7 @@ export default class Api {
        const setUrl = this._url + '/cards'
        return fetch(setUrl, {
           method: 'POST',
-          headers: {
-             authorization: this._headers,
-             'Content-Type': 'application/json'
-          },
+          headers: this._headers,
           body: JSON.stringify({
              name: name,
              link: link
@@ -88,9 +75,7 @@ export default class Api {
        const setUrl = this._url + `/cards/${id}`;
        return fetch(setUrl, {
           method: 'DELETE',
-          headers: {
-             authorization: this._headers
-          }
+          headers: this._headers
        })
        .then(this._checkResponse)
     }
@@ -99,9 +84,7 @@ export default class Api {
        const setUrl = this._url + `/cards/${id}/likes`;
        return fetch(setUrl, {
           method: 'PUT',
-          headers: {
-             authorization: this._headers
-          }
+          headers: this._headers
        })
        .then(this._checkResponse)
     }
@@ -109,9 +92,7 @@ export default class Api {
        const setUrl = this._url + `/cards/${id}/likes`;
        return fetch(setUrl, {
           method: 'DELETE',
-          headers: {
-             authorization: this._headers
-          }
+          headers: this._headers
        })
        .then(this._checkResponse)
     }   
