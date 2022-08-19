@@ -11,10 +11,7 @@ import Api from '../components/Api.js';
 
 const api = new Api({
    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
-   headers: {
-      authorization: 'eba047a0-9a84-4b5f-a16d-8cb313301f0e',
-      'Content-Type': 'application/json',
-    },
+   headers: 'eba047a0-9a84-4b5f-a16d-8cb313301f0e'
 });
 
 const createCard = function (card) {
@@ -87,6 +84,7 @@ buttonEditProfile.addEventListener('click', function () {
 const validProfile = new FormValidator(valid, popupProfile._form);
 validProfile.enableValidation();
 
+
 const popupAvatar = new PopupWithForm({
    selector:'.popup_edit_photo',
    submitFunction: (input) => {      
@@ -132,9 +130,12 @@ buttonFotoAdd.addEventListener('click', () => {
    popupCards.open();
 });
 
-const delLike = function(card) {   
-   api.deleteLike(card._id)   
+const delLike = function(card) {
+   console.log(card)
+   api.deleteLike(card._id)
+   
    .then((result) => {
+      console.log(card);
      card.togglelike(result.likes.length);
    })
    .catch(api.catchError);
@@ -151,10 +152,10 @@ validPopupAdd.enableValidation();
 
 const popupSure = new PopupWithConfirmation({
    selector: '.popup_type_sure',
-   submitFunction: (id) => {
+   submitFunction: (photo, id) => {
       api.deleteCard(id)
          .then(() => {            
-            deleteCard();
+            photo.remove()
             popupSure.close();            
          })
          .catch(api.catchError);       
