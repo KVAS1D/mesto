@@ -11,9 +11,7 @@ export default class Api {
           return Promise.reject(`Ошибка ${res.status}`);
     }
  
-    catchError(err) {
-       console.log(err);
-    }
+    
  
     getUserInfo() {
        const setUrl = this._url + '/users/me'
