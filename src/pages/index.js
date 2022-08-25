@@ -153,10 +153,10 @@ validPopupAdd.enableValidation();
 
 const popupSure = new PopupWithConfirmation({
    selector: '.popup_type_sure',
-   submitFunction: (card, id) => {
+   submitFunction: (photo, id) => {
       api.deleteCard(id)
          .then(() => {
-            card.deleteCard()
+            photo.remove()
             popupSure.close();
          })
          .catch(api.catchError);
