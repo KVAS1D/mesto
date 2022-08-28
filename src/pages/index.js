@@ -23,16 +23,15 @@ const createCard = function (card) {
 }
 
 const insertCard = (card) => {
-   const newCard = [{
+   const newCard = {
       name: card.name,
       link: card.link,
       likes: card.likes,
       id: card._id,
       owner: card.owner._id
-   }];
+   };
    const cardElement = createCard(newCard);
    section.addItem(cardElement);
-
 }
 
 
@@ -153,10 +152,9 @@ validPopupAdd.enableValidation();
 
 const popupSure = new PopupWithConfirmation({
    selector: '.popup_type_sure',
-   submitFunction: (photo, id) => {
+   submitFunction: (id) => {
       api.deleteCard(id)
          .then(() => {
-            photo.remove()
             popupSure.close();
          })
          .catch(api.catchError);

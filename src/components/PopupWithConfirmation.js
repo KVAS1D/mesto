@@ -6,9 +6,10 @@ export default class PopupWithConfirmation extends PopupWithForm{
    }
    _submitForm = (ev) => {
       ev.preventDefault();
-      this._submitFunction(this._targetCard, this._idCard);      
+      this._submitFunction(this._idCard);      
    }   
-   open(target, id) {
+   
+   open(target, id) {      
       this._targetCard = target;
       this._idCard = id;
       super.open();

@@ -1,17 +1,16 @@
 export default class Card {
-   constructor(data, selector, handleCardClick, popupSure, putLike, delLike,  userId) {
-      const test = data[0];
-      this._id = test.id;
-      this._owner = test.owner;
-      this._name = test.name;
-      this._link = test.link;
-      this._likes = test.likes.length;
+   constructor(data, selector, handleCardClick, cardSure, putLike, delLike,  userId) {      
+      this._id = data.id;
+      this._owner = data.owner;
+      this._name = data.name;
+      this._link = data.link;
+      this._likes = data.likes.length;
       this._isLiked = false;
       this._userId = userId;
-      this._popupSure = popupSure;
+      this._cardSure = cardSure;
       this._putLike = putLike;
       this._delLike = delLike;
-      test.likes.forEach(like => {
+      data.likes.forEach(like => {
          if (like._id == this._userId) {
             this._isLiked = true;
          }
@@ -54,10 +53,19 @@ export default class Card {
    }
    
    _setEventListeners(removePopup, putLike, delLike) {
+      let currentID;
       this._picture.addEventListener('click', () => this._handleCardClick(this._name, this._link));
       this._likeButton.addEventListener('click', () => this._handleLike(putLike, delLike));
-      this._card.querySelector('.element__del').addEventListener('click', () => removePopup.open(this._card, this._id));     
-   }  
+      this._card.querySelector('.element__del').addEventListener('click', () => {
+         currentID = this._id;
+         removePopup.open(this._card, this._id);     
+      });
+      removePopup.btt.addEventListener('click', () => {
+         if (this._id === currentID) {
+           this.deleteCard()
+         }
+      })
+   }
  
    createCard() {
       this._card = this._getTemplate();     
@@ -74,7 +82,7 @@ export default class Card {
          this._card.querySelector('.element__del').classList.remove('element__del_hidden');
       }
       this.togglelike= this.togglelike;
-      this._setEventListeners(this._popupSure, this._putLike, this._delLike);     
+      this._setEventListeners(this._cardSure, this._putLike, this._delLike);     
       return this._card;
    }
  };
