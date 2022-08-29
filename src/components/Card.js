@@ -1,5 +1,5 @@
 export default class Card {
-   constructor(data, selector, handleCardClick, cardSure, putLike, delLike,  userId) {      
+   constructor(data, selector, handleCardClick, handleDeleteCard, putLike, delLike,  userId) {      
       this._id = data.id;
       this._owner = data.owner;
       this._name = data.name;
@@ -7,7 +7,7 @@ export default class Card {
       this._likes = data.likes.length;
       this._isLiked = false;
       this._userId = userId;
-      this._cardSure = cardSure;
+      this._handleDeleteCard = handleDeleteCard;
       this._putLike = putLike;
       this._delLike = delLike;
       data.likes.forEach(like => {
@@ -52,19 +52,10 @@ export default class Card {
       this._card.remove();
    }
    
-   _setEventListeners(removePopup, putLike, delLike) {
-      let currentID;
+   _setEventListeners(removePopup, putLike, delLike) {      
       this._picture.addEventListener('click', () => this._handleCardClick(this._name, this._link));
       this._likeButton.addEventListener('click', () => this._handleLike(putLike, delLike));
-      this._card.querySelector('.element__del').addEventListener('click', () => {
-         currentID = this._id;
-         removePopup.open(this._card, this._id);     
-      });
-      removePopup.btt.addEventListener('click', () => {
-         if (this._id === currentID) {
-           this.deleteCard()
-         }
-      })
+      this._card.querySelector('.element__del').addEventListener('click', () => { this._handleDeleteCard(this, this. _id) });
    }
  
    createCard() {

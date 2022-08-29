@@ -18,7 +18,10 @@ const api = new Api({
 });
 
 const createCard = function (card) {
-   const userCard = new Card(card, '.template', handleCardClick, popupSure, putLike, delLike, userInfo.id);
+   const handleDeleteCard = (card, cardId) => {
+      popupSure.open(card, cardId);
+      }
+      const userCard = new Card(card, '.template', handleCardClick, handleDeleteCard, putLike, delLike, userInfo.id);
    return userCard.createCard();
 }
 
@@ -152,14 +155,15 @@ validPopupAdd.enableValidation();
 
 const popupSure = new PopupWithConfirmation({
    selector: '.popup_type_sure',
-   submitFunction: (id) => {
+   submitFunction: (card, id) => {
       api.deleteCard(id)
          .then(() => {
+            card.deleteCard()
             popupSure.close();
          })
          .catch(api.catchError);
    }
-});
+}); 
 popupSure.setEventListeners();
 
 
